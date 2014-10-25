@@ -1,0 +1,18 @@
+namespace MidTermPizzaPOS
+{
+    public partial class SummaryForm : Form
+    {
+        public SummaryForm()
+        {
+            InitializeComponent();
+        }
+
+        public string DSTextBox
+        {
+            get { return txBxDailyOrders.Text; }
+
+            set { txBxDailyOrders.Text = value; }
+
+        }
+    }
+}
