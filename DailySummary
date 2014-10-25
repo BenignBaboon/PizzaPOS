@@ -1,0 +1,83 @@
+namespace MidTermPizzaPOS
+{
+    class DailySummary
+    {
+        private int numberOfPizzas, numberOfCokes, totalOfCokes, totalOfPizzas;
+        List<PizzaOrder> pizzaOrders = new List<PizzaOrder>();
+
+        public static SummaryForm dailySales = new SummaryForm();
+
+        public int NumberOfPizzas
+        {
+            get { return numberOfPizzas; }
+
+            set { numberOfPizzas = value; }
+        }
+
+        public int NumberOfCokes
+        {
+            get { return numberOfCokes; }
+
+            set { numberOfCokes = value; }
+        }
+
+        public int TotalOfCokes
+        {
+            get { return totalOfCokes; }
+
+            set { totalOfCokes = value; }
+        }
+
+        public int TotalOfPizzas
+        {
+            get { return totalOfPizzas; }
+
+            set { totalOfPizzas = value; }
+        }
+
+        //public List<PizzaOrder> PizzaOrders
+        //{
+        //    get { return pizzaOrders; }
+
+        //    set { pizzaOrders = value; }
+        //}
+
+        public void GetOrder()
+        {
+            //string summary = "";
+            //for (int i = 0; i < pizzaOrders.Count; i++)
+            //{
+            //    summary += pizzaOrders[i].ToString() + "\n"; 
+            //}
+
+            //return summary;
+        }
+
+        public void StoreOrder(PizzaOrder order)
+        {
+            pizzaOrders.Add(order); 
+        }
+
+        public void GetAllOrders()
+        {
+            string summary = "";
+
+            for (int i = 0; i < pizzaOrders.Count; i++)
+            {
+                summary += "Order " + (i + 1) + ": \nNumber of Pizzas:" 
+                        + pizzaOrders[i].NumberOfPizzas + "\nNumber of Sodas: "
+                        + pizzaOrders[i].NumberOfCokes + " \n\n";
+            }
+
+            dailySales.DSTextBox = summary;
+            dailySales.ShowDialog();
+
+        }
+
+        public override string ToString()
+        {
+            string dailySales;
+            return dailySales = "" + pizzaOrders[0];
+        }
+    }
+}
