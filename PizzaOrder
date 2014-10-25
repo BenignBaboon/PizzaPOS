@@ -1,0 +1,179 @@
+namespace MidTermPizzaPOS
+{
+    class PizzaOrder
+    {
+        //declare class level constants
+        private const double PIZZA_PRICE = 7.99;
+        private const double SODA_PRICE = 1.49;
+        private const double TAX_RATE = .08; 
+
+        //declare class level variables 
+        private int pepQty, sausQty, cheeseQty;
+        private int cocQty, drpepQty, spriteQty;
+        private int numberOfPizzas, numberOfCokes;
+        private double subtotal, taxAmount, amountDue, amountPaid, changeDue;
+
+        public static DailySummary summary = new DailySummary(); 
+
+        public PizzaOrder()
+        {
+        }
+
+        public PizzaOrder(int numPizzas, int numCokes)
+        {
+            NumberOfPizzas = numPizzas;
+            NumberOfCokes = numCokes;
+        }
+
+        public int PepQty
+        {
+            get { return pepQty; }
+
+            set { pepQty = value; }
+        }
+
+        public int SausQty
+        {
+            get { return sausQty; }
+
+            set { sausQty = value; }
+        }
+
+        public int CheeseQty
+        {
+            get { return cheeseQty; }
+
+            set { cheeseQty = value; }
+        }
+
+        public int CocQty
+        {
+            get { return cocQty; }
+
+            set { cocQty = value; }
+        }
+
+        public int DrpepQty
+        {
+            get { return drpepQty; }
+
+            set { drpepQty = value; }
+        }
+
+        public int SpriteQty
+        {
+            get { return spriteQty; }
+
+            set { spriteQty = value; }
+        }
+
+        public int NumberOfPizzas
+        {
+            get { return numberOfPizzas; }
+
+            set { numberOfPizzas = value; }
+        }
+
+        public int NumberOfCokes
+        {
+            get { return numberOfCokes; }
+
+            set { numberOfCokes = value; }
+        }
+
+        public double AmountDue
+        {
+            get { return amountDue; }
+
+            set { amountDue = value; }
+        }
+
+        public double AmountPaid
+        {
+            get { return amountPaid; }
+
+            set { amountPaid = value; }
+        }
+
+        public double ChangeDue
+        {
+            get { return changeDue; }
+
+            set { changeDue = value; }
+        }
+
+        public double Subtotal
+        {
+            get { return subtotal; }
+
+            set { subtotal = value; }
+        }
+
+        public double TaxAmount
+        {
+            get { return taxAmount; }
+
+            set { taxAmount = value; }
+        }
+
+        public string GetSubtotal()
+        {
+           string sub;
+           Subtotal = ((PepQty + SausQty + CheeseQty) * PIZZA_PRICE)
+                       + ((CocQty + DrpepQty + SpriteQty) * SODA_PRICE);
+           return sub = String.Format("Subtotal:                {0:c2}", Subtotal); 
+        }
+
+        public string GetTaxAmount()
+        {
+            string tax;
+            TaxAmount = (Subtotal * TAX_RATE);
+            return tax = String.Format("Tax @ {0:p2}:       {1:c2}", TAX_RATE, TaxAmount);
+        }
+
+        public string GetAmountDue()
+        {
+            string amountDue; 
+            AmountDue = (Subtotal + TaxAmount);
+            return amountDue = String.Format("Amount Due:       {0:c2}", AmountDue);
+        }
+
+        public string GetChangeDue()
+        {
+            string change;
+            ChangeDue = (AmountPaid - AmountDue);
+            return change = String.Format("{0:c2}", ChangeDue); 
+        }
+
+        public void InputOrder(PizzaOrder order)
+        {
+            NumberOfPizzas = PepQty + SausQty + CheeseQty;
+            NumberOfCokes = CocQty + DrpepQty + SpriteQty;
+            
+            summary.StoreOrder(order); 
+        }
+
+        public string GetOrderSummary()
+        {
+            string orderSummary, pizzaOrderSummary, sodaOrderSummary;
+
+            pizzaOrderSummary = String.Format("Pizza(s):\n\nPepperoni:\t "
+                    + PepQty + "@ " + PIZZA_PRICE + " = " + "{0:c2}\nSausage:\t\t "
+                    + SausQty + "@ " + PIZZA_PRICE + " = " + "{1:c2}\nCheese:\t\t "
+                    + CheeseQty + "@ " + PIZZA_PRICE + " = " + "{2:c2}\n\t\t\t"
+                    + "Pizza Subtotal: {3:c2}", (PepQty * PIZZA_PRICE), 
+                    (SausQty * PIZZA_PRICE), (CheeseQty * PIZZA_PRICE),
+                    ((PepQty + SausQty + CheeseQty) * PIZZA_PRICE));
+
+            sodaOrderSummary = String.Format("\n\nSoda(s):\n\nCoca-Cola:\t "
+                    + CocQty + "@ " + SODA_PRICE + " = " + "{0:c2}\nDr. Pepper:\t "
+                    + DrpepQty + "@ " + SODA_PRICE + " = " + "{1:c2}\nSprite:\t\t "
+                    + SpriteQty + "@ " + SODA_PRICE + " = " + "{2:c2}\n\t\t\t"
+                    + "Soda Subtotal: {3:c2}", (CocQty * SODA_PRICE),
+                    (DrpepQty * SODA_PRICE), (SpriteQty * SODA_PRICE),
+                    ((CocQty + DrpepQty + SpriteQty) * SODA_PRICE));
+
+            return orderSummary = (pizzaOrderSummary + sodaOrderSummary); 
+        }
+    }
+}
