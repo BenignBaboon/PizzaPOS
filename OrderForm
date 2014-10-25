@@ -1,0 +1,79 @@
+namespace MidTermPizzaPOS
+{
+    public partial class OrderForm : Form
+    {
+        
+        PizzaOrder order = new PizzaOrder();
+
+        public OrderForm()
+        {
+            InitializeComponent();
+            txBxPeppQty.Text = "0";
+            txBxSausQty.Text = "0";
+            txBxCheeseQty.Text = "0";
+            txBxColaQty.Text = "0";
+            txBxDrPepQty.Text = "0";
+            txBxSpriteQty.Text = "0"; 
+        }
+
+        private void btnReviewOrder_Click(object sender, EventArgs e)
+        {
+            order.PepQty = int.Parse(txBxPeppQty.Text);
+            order.SausQty = int.Parse(txBxSausQty.Text);
+            order.CheeseQty = int.Parse(txBxCheeseQty.Text);
+            order.CocQty = int.Parse(txBxColaQty.Text);
+            order.DrpepQty = int.Parse(txBxDrPepQty.Text);
+            order.SpriteQty = int.Parse(txBxSpriteQty.Text);
+
+            txBxOrderSummary.Text = order.GetOrderSummary(); 
+            lblSubtotal.Text = order.GetSubtotal();
+            lblTaxAmount.Text = order.GetTaxAmount();
+            lblAmountDue.Text = order.GetAmountDue();
+
+            lblSubtotal.Show();
+            lblTaxAmount.Show();
+            lblAmountDue.Show(); 
+        }
+
+        private void btnSubmitOrder_Click(object sender, EventArgs e)
+        {
+            order.AmountPaid = double.Parse(txBxAmountPaid.Text); 
+
+            order.InputOrder(order);
+
+            MessageBox.Show(String.Format("Order Submitted!\nChange Due: {0:c2}",
+                            order.GetChangeDue()));
+
+            this.Hide();
+
+            OrderForm newOrder = new OrderForm();
+            newOrder.ShowDialog(); 
+
+        }
+
+        private void btnClearOrder_Click(object sender, EventArgs e)
+        {
+            txBxPeppQty.Text = "0";
+            txBxSausQty.Text = "0";
+            txBxCheeseQty.Text = "0";
+            txBxColaQty.Text = "0";
+            txBxDrPepQty.Text = "0";
+            txBxSpriteQty.Text = "0";
+            txBxOrderSummary.Clear();
+            lblSubtotal.Hide();
+            lblTaxAmount.Hide();
+            lblAmountDue.Hide();
+            txBxAmountPaid.Clear(); 
+        }
+
+        private void btnDailySales_Click(object sender, EventArgs e)
+        {
+            //txBxOrderSummary.Clear();
+            //txBxOrderSummary.Text = PizzaOrder.summary.GetAllOrders(); 
+
+            PizzaOrder.summary.GetAllOrders(); 
+
+        }
+
+    }
+}
